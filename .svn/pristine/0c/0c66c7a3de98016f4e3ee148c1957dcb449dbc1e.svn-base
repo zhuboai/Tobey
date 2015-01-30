@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <classPathEntry location="mysql-connector-java-5.1.18.jar" /> -->
+	<classPathEntry location="ojdbc14-10.2.0.4.0.jar" />
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<property name="jdbcType" value="true" />
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+		<plugin type="org.mybatis.generator.plugins.CommentGeneratorPlugin" />
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+		<!-- <plugin type="org.mybatis.generator.plugins.MysqlPaginationPlugin" /> -->
+		<plugin type="org.mybatis.generator.plugins.OraclePaginationPlugin" />
+
+		<plugin type="org.mybatis.generator.plugins.MybatisCriteriaPlugin" />
+		<plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
+			<!-- <property name="targetPackage" value="com.ailk.mapp.dao.service" /> -->
+			<property name="implementationPackage" value="com.ailk.mapp.dao.service" />
+			<property name="targetProject" value="src" />
+			<property name="enableInsert" value="true" />
+			<property name="enableUpdateByExampleSelective" value="true" />
+			<property name="enableInsertSelective" value="true" />
+			<property name="enableUpdateByPrimaryKey" value="true" />
+			<property name="enableDeleteByPrimaryKey" value="true" />
+			<property name="enableDeleteByExample" value="true" />
+			<property name="enableUpdateByPrimaryKeySelective" value="true" />
+			<property name="enableUpdateByExample" value="true" />
+		</plugin>
+        <plugin type="org.mybatis.generator.plugins.TableConstantPlugin">
+            <property name="targetPackage" value="com.ailk.mapp.dao.constants" />
+            <property name="targetProject" value="src" />
+        </plugin>
+		<!-- 想要mybaits代码生成器生成Example类换个名字，是通过插件实现的，即下面的这个插件配置参数很关键。 -->
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.15.194:3306/appdbtest" userId="appm" password="appm123"> 
+			</jdbcConnection> -->
+		<!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.15.194:3306/es" userId="smartes" password="smartes123"> 
+			<property name="remarksReporting" value="true" /> <property name="useUnicode" value="true" /> <property name="characterEncoding" value="UTF-8" /> </jdbcConnection> -->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.6.114:1521:ngstatst" userId="UCR_STA_CUSTMGR"
+			password="123456">
+			<property name="remarksReporting" value="true" />
+			<property name="useUnicode" value="true" />
+			<property name="characterEncoding" value="UTF-8" />
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.ailk.mapp.dao.beans" targetProject="src">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapper" targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.ailk.mapp.dao.persistence" targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 
+		<table tableName="TD_APP_ACC"></table>
+		<table tableName="TD_APP_CHNL"></table>
+		<table tableName="TD_APP_DEVICES"></table>
+		<table tableName="TD_APP_OP_STATUS"></table>
+		<table tableName="TL_USAGE_RECORD"></table>
+		<table tableName="TD_SHOPPING_CUSTOMER"></table>
+		<table tableName="TD_SHOPPING_CART"></table>
+		<table tableName="TD_APP_ORDER_DETAIL">
+			<generatedKey column="ORDER_ID" sqlStatement="SELECT SEQ_APP_ORDER_ID.NEXTVAL FROM DUAL" identity="false" />
+		</table>
+		<table tableName="TD_APP_ORDER_DETAIL_HIS"></table>
+		<table tableName="TD_APP_ORDER_ITEMS"></table>
+		<table tableName="TD_APP_ORDER_AH"></table>
+		<table tableName="TD_APP_ORDER_ITEMS_HIS"></table>
+		<table tableName="TD_APP_ORDER_AH_HIS"></table>
+		<table tableName="TD_APP_DATA_ITEM"></table>
+		<table tableName="TD_APP_DATA_FEE"></table>
+		<table tableName="TD_APP_DATA_FEE_TYPE"></table>
+		<table tableName="TD_APP_PHONE_INFO"></table>
+		<table tableName="TD_APP_PHONE_TP"></table>
+		<table tableName="TD_APP_PHONE_PARAM"></table>
+		<table tableName="TD_APP_MKT_TPL"></table>
+		<table tableName="TD_APP_MKT_TPL_EMP"></table>
+		<table tableName="TD_APP_MKT_TPL_DATA"></table>
+		<table tableName="TD_APP_SYS_PARAM"></table>
+		<table tableName="TD_APP_UPDATE_FLAG"></table>
+		<table tableName="TL_APP_LOGIN_LOG">
+			<generatedKey column="LOG_ID" sqlStatement="SELECT SEQ_APP_LOG_ID.NEXTVAL FROM DUAL" identity="false" />
+		</table>
+		<table tableName="TL_APP_M_OPERATE_LOG"></table>
+		<table tableName="TL_APP_ORDER_OP_LOG">
+			<generatedKey column="LOG_ID" sqlStatement="SELECT SEQ_APP_ORDER_LOG_ID.NEXTVAL FROM DUAL" identity="false" />
+		</table>
+		<table tableName="TD_APP_CUSTOMER_DEVICES"></table>
+ -->
+ 
+ <!-- 注意！！！ MAPP 后续的序列都要用函数生成，新加序列，需要修改函数，这样用来防止序列溢出，序列定义方法见函数说明 SELECT F_MAPP_GETSEQID('S_TD_APP_STATISTICS_LOG') FROM DUAL -->
+		 <table tableName="TD_SHOPPING_CART"></table>
+		 
+		 <!-- 
+ <table tableName="TD_M_RESOURCE"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_M_RESOURCE.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TD_M_ROLE"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_M_ROLE.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TD_M_ROLE_RESOURCE"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_M_ROLE_RESOURCE.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TD_M_USER"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_M_USER.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TD_M_USER_ROLE"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_M_USER_ROLE.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TF_F_MDZ_LOGIN"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TF_F_MDZ_LOGIN.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="TF_F_PUSH_CONFIRM_FAIL"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TF_F_PUSH_CONFIRM_FAIL.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="persistent_logins"></table>
+ <table tableName="td_s_convert_config"></table>
+ <table tableName="td_s_docking_system"></table>
+ <table tableName="td_s_menu"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_S_MENU.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="td_s_menutype"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_S_MENUTYPE.NEXTVAL FROM DUAL" identity="true" /></table>
+ <table tableName="td_s_protocol_node"><generatedKey column="ORDER_ID" sqlStatement="SELECT S_TD_S_PROTOCOL_NODE.NEXTVAL FROM DUAL" identity="false" /></table>
+ <table tableName="td_s_system_param"></table>
+  -->
+	</context>
+</generatorConfiguration>
